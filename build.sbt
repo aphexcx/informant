@@ -1,21 +1,7 @@
-import sbt.Keys.version
-
-name := "Informant"
-version := "1.0"
 
 lazy val http4sVersion = "0.14.4"
 
-val publishSettings = Seq(
-  publishTo := {
-    isSnapshot.value match {
-      case true => Some("iDecide Snapshots" at "https://nexus.flexis.ru/content/repositories/snapshots")
-      case false => Some("iDecide Releases" at "https://nexus.flexis.ru/content/repositories/releases")
-    }
-  }
-)
-
 val commonSettings = Seq(
-  libraryDependencies += "net.ruippeixotog" %% "scala-scraper" % "1.2.0",
   organization := "co.datamonsters",
   scalaVersion := "2.11.8",
   version := "0.3.0"
@@ -23,7 +9,6 @@ val commonSettings = Seq(
 
 lazy val core = project
   .settings(commonSettings: _*)
-  .settings(publishSettings: _*)
   .settings(
     normalizedName := "facebot-core",
     libraryDependencies ++= Seq(
@@ -35,7 +20,6 @@ lazy val core = project
 
 lazy val http4s = project
   .settings(commonSettings: _*)
-  .settings(publishSettings: _*)
   .settings(
     normalizedName := "facebot-http4s",
     libraryDependencies ++= Seq(
@@ -48,7 +32,6 @@ lazy val http4s = project
 
 lazy val akkahttp = project
   .settings(commonSettings: _*)
-  .settings(publishSettings: _*)
   .settings(
     normalizedName := "facebot-akka-http",
     libraryDependencies ++= Seq(
@@ -59,5 +42,11 @@ lazy val akkahttp = project
   .dependsOn(core)
 
 lazy val root = (project in file("."))
+  .settings(
+    name := "Informant",
+    version := "1.0",
+    scalaVersion := "2.11.8",
+    libraryDependencies += "net.ruippeixotog" %% "scala-scraper" % "1.2.0"
+  )
   .settings(publish := {})
   .aggregate(core, http4s, akkahttp)

@@ -2,7 +2,8 @@
 import net.ruippeixotog.scalascraper.browser.JsoupBrowser
 import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
 import net.ruippeixotog.scalascraper.dsl.DSL._
-import net.ruippeixotog.scalascraper.model.Element
+
+import scala.language.postfixOps
 
 /**
   * Created by aphex on 1/15/17.
