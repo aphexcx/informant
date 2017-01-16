@@ -1,3 +1,4 @@
+
 import net.ruippeixotog.scalascraper.browser.JsoupBrowser
 import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
 import net.ruippeixotog.scalascraper.dsl.DSL._
@@ -21,12 +22,10 @@ object Main extends App {
 
   while(true) {
     val newPrice = price
+    println(newPrice)
     if (newPrice < currentPrice) {
       sendMessage(newPrice)
     }
     currentPrice = newPrice
   }
-
-  println(price)
-
 }
