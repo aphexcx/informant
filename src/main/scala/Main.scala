@@ -24,9 +24,9 @@ object Main extends App {
   while(true) {
     val newPrice = price
     println(newPrice)
-    if (newPrice < currentPrice) {
-      sendMessage(newPrice)
-    }
+    //    if (newPrice < currentPrice) {
+    ////      sendMessage(newPrice)
+    //    }
     currentPrice = newPrice
   }
 }
