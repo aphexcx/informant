@@ -1,14 +1,23 @@
+name := "Informant"
+version := "1.0"
+
+enablePlugins(JavaServerAppPackaging)
 
 lazy val http4sVersion = "0.14.4"
 
-val commonSettings = Seq(
-  organization := "co.datamonsters",
+val rootSettings = Seq(
+  scalaVersion := "2.12.1",
+  libraryDependencies += "net.ruippeixotog" %% "scala-scraper" % "1.2.0"
+)
+
+val facebotSettings = Seq(
   scalaVersion := "2.11.8",
+  organization := "co.datamonsters",
   version := "0.3.0"
 )
 
 lazy val core = project
-  .settings(commonSettings: _*)
+  .settings(facebotSettings: _*)
   .settings(
     normalizedName := "facebot-core",
     libraryDependencies ++= Seq(
@@ -19,7 +28,7 @@ lazy val core = project
   )
 
 lazy val http4s = project
-  .settings(commonSettings: _*)
+  .settings(facebotSettings: _*)
   .settings(
     normalizedName := "facebot-http4s",
     libraryDependencies ++= Seq(
@@ -31,7 +40,7 @@ lazy val http4s = project
   .dependsOn(core)
 
 lazy val akkahttp = project
-  .settings(commonSettings: _*)
+  .settings(facebotSettings: _*)
   .settings(
     normalizedName := "facebot-akka-http",
     libraryDependencies ++= Seq(
@@ -42,11 +51,6 @@ lazy val akkahttp = project
   .dependsOn(core)
 
 lazy val root = (project in file("."))
-  .settings(
-    name := "Informant",
-    version := "1.0",
-    scalaVersion := "2.11.8",
-    libraryDependencies += "net.ruippeixotog" %% "scala-scraper" % "1.2.0"
-  )
+  .settings(rootSettings: _*)
   .settings(publish := {})
   .aggregate(core, http4s, akkahttp)
